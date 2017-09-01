@@ -1,4 +1,4 @@
-
+,
 # Multilayer Perceptron to Predict International Airline Passengers (t+1, given t)
 import numpy
 import matplotlib.pyplot as plt
@@ -39,25 +39,25 @@ def create_model(input, output):
 	model.fit(input, output, epochs=200, batch_size=2, verbose=2)
 	return(model)
 
-def train_predict(dataset):
+def train_predict(dataset,trainPredict):
 	# shift train predictions for plotting
 	trainPredictPlot = numpy.empty_like(dataset)
 	trainPredictPlot[:, :] = numpy.nan
 	trainPredictPlot[look_back:len(trainPredict)+look_back, :] = trainPredict
 	return(trainPredictPlot)
 
-def test_predict(dataset):
+def test_predict(dataset,testPredict):
 	# shift test predictions for plotting
 	testPredictPlot = numpy.empty_like(dataset)
 	testPredictPlot[:, :] = numpy.nan
 	testPredictPlot[len(trainPredict)+(look_back*2)+1:len(dataset)-1, :] = testPredict
 	return(testPredictPlot)
 
-def visualization(dataset):
+def visualization(dataset,trainPredict,testPredict):
 	# plot baseline and predictions
 	plt.plot(dataset)
-	plt.plot(train_predict(dataset))
-	plt.plot(test_predict(dataset))
+	plt.plot(train_predict(dataset, trainPredict))
+	plt.plot(test_predict(dataset, testPredict))
 	plt.show()
 
 def main():	
@@ -76,7 +76,7 @@ def main():
 	trainPredict = model.predict(trainX)
 	testPredict = model.predict(testX)
 	
-	visualization(dataset)
+	visualization(dataset,testPredict,testPredict)
 
 	return 0
 

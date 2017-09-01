@@ -1,4 +1,4 @@
-source: https://machinelearningmastery.com/time-series-prediction-with-deep-learning-in-python-with-keras/
+ source: https://machinelearningmastery.com/time-series-prediction-with-deep-learning-in-python-with-keras by Dr. Jason Brownlee 
 
 # Multilayer Perceptron to Predict International Airline Passengers (t+1, given t)
 import numpy

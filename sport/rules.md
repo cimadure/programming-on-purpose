@@ -7,17 +7,17 @@ CHOIX : 20 joueurs
 
 POUR LES JOUEURS DE LA LNH
 Gardiens
-· 3 points par victoire
-· 5 points par blanchissage
-· 5 points par but
-· 2 points par passe
+·V  3 points par victoire
+·BL 5 points par blanchissage
+·B  5 points par but
+·P  2 points par passe
 
 Défenseurs
-· 3 points par but
-· 2 points par passe
+·B  3 points par but
+·P  2 points par passe
 
 Centres et ailiers
-· 2 points par but
-· 1 point par passe
+·B  2 points par but
+·P  1 point par passe
 
 

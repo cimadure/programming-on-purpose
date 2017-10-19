@@ -4,6 +4,25 @@ CHOIX : 20 joueurs
 · 6 défenseurs
 · 12 attaquants 
 
+| Number | Name |
+|---|---|
+| 2 | goaly|
+| 6 | defe.. |
+| 12 | att |
+| **20** | **players** |
+
+
+| french | english |
+|---|---|
+| victoire | win |
+| blanchissage | shutout |
+| but | goal |
+| passe | assist |
+| gardien | |
+| attaquant | |
+| defenseur | |
+
+
 
 POUR LES JOUEURS DE LA LNH
 Gardiens

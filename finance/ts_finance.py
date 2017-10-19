@@ -11,17 +11,6 @@ from keras.layers import Dense
 # fix random seed for reproducibility
 numpy.random.seed(7)
 
-# load the dataset
-dataframe = pandas.read_csv('international-airline-passengers.csv', usecols=[1], engine='python', skipfooter=3)
-dataset = dataframe.values
-dataset = dataset.astype('float32')
-
-# split into train and test sets
-train_size = int(len(dataset) * 0.67)
-test_size = len(dataset) - train_size
-train, test = dataset[0:train_size, :], dataset[train_size:len(dataset), :]
-print(len(train), len(test))
-
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
@@ -43,31 +32,42 @@ def create_model(input, output, look_back=1):
     return model
 
 
-def train_predict(dataset, train_predict, look_back=1):
+def train_predict(dataset, predict, look_back=1):
     # shift train predictions for plotting
-    trainPredictPlot = numpy.empty_like(dataset)
-    trainPredictPlot[:, :] = numpy.nan
-    trainPredictPlot[look_back:len(train_predict) + look_back, :] = train_predict
-    return trainPredictPlot
+    train_predict_plot = numpy.empty_like(dataset)
+    train_predict_plot[:, :] = numpy.nan
+    train_predict_plot[look_back:len(predict) + look_back, :] = predict
+    return train_predict_plot
 
 
-def test_predict(dataset, test_predict, trainPredict, look_back=1):
+def test_predict(dataset, test, train, look_back=1):
     # shift test predictions for plotting
-    testPredictPlot = numpy.empty_like(dataset)
-    testPredictPlot[:, :] = numpy.nan
-    testPredictPlot[len(trainPredict) + (look_back * 2) + 1:len(dataset) - 1, :] = test_predict
-    return testPredictPlot
+    test_predict_plot = numpy.empty_like(dataset)
+    test_predict_plot[:, :] = numpy.nan
+    test_predict_plot[len(train) + (look_back * 2) + 1:len(dataset) - 1, :] = test
+    return test_predict_plot
 
 
 def visualization(dataset, train, test):
     # plot baseline and predictions
     plt.plot(dataset)
     plt.plot(train_predict(dataset, train))
-    plt.plot(test_predict(dataset, test))
+    plt.plot(test_predict(dataset, test, train))
     plt.show()
 
 
 def main():
+    # load the dataset
+    dataframe = pandas.read_csv('international-airline-passengers.csv', usecols=[1], engine='python', skipfooter=3)
+    dataset = dataframe.values
+    dataset = dataset.astype('float32')
+
+    # split into train and test sets
+    train_size = int(len(dataset) * 0.67)
+    test_size = len(dataset) - train_size
+    train, test = dataset[0:train_size, :], dataset[train_size:len(dataset), :]
+    print(len(train), len(test))
+
     # reshape into X=t and Y=t+1
     look_back = 1
     train_x, train_y = create_dataset(train, look_back)

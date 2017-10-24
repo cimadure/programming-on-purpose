@@ -6,7 +6,7 @@ BUDGET : 75 000 000,00$
 | 2 | goaly| 3 | 5 | 5 | 2 |
 | 6 | defe.. | x | x | 3| 2|
 | 12 | att |x |x |2 |1|
-| **20** | **players** | x|x|x|x|
+| **_20_** | **_players_** | x|x|x|x|
 
 
 | french | english |

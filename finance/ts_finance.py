@@ -77,9 +77,9 @@ def main():
 
     # Estimate model performance
     train_score = model.evaluate(train_x, train_y, verbose=0)
-    print('Train Score: %.2f MSE (%.2f RMSE)' % (train_score, math.sqrt(train_score)))
+    print('Train Score: {.2f} MSE ({.2f} RMSE)'.format(train_score, math.sqrt(train_score)))
     test_score = model.evaluate(test_x, test_y, verbose=0)
-    print('Test Score: %.2f MSE (%.2f RMSE)' % (test_score, math.sqrt(test_score)))
+    print('Test Score: {.2f} MSE ({.2f} RMSE)'.format(test_score, math.sqrt(test_score)))
 
     # generate predictions for training
     train_prediction = model.predict(train_x)

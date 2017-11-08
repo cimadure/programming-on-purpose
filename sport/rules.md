@@ -1,23 +1,24 @@
 BUDGET : 75 000 000,00$
-CHOIX : 20 joueurs
-· 2 gardiens
-· 6 défenseurs
-· 12 attaquants 
 
 
-POUR LES JOUEURS DE LA LNH
-Gardiens
-·V  3 points par victoire
-·BL 5 points par blanchissage
-·B  5 points par but
-·P  2 points par passe
+| Number | Name | win | shutout | goal | assist |
+|---|---|---|---|---|---|
+| 2 | goaly| 3 | 5 | 5 | 2 |
+| 6 | defe.. | x | x | 3| 2|
+| 12 | att |x |x |2 |1|
+| **_20_** | **_players_** | x|x|x|x|
 
-Défenseurs
-·B  3 points par but
-·P  2 points par passe
 
-Centres et ailiers
-·B  2 points par but
-·P  1 point par passe
+| french | english |
+|---|---|
+| victoire | win |
+| blanchissage | shutout |
+| but | goal |
+| passe | assist |
+| gardien | |
+| attaquant | |
+| defenseur | |
+
+
 
 

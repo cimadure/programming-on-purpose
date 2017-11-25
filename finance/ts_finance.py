@@ -14,12 +14,12 @@ numpy.random.seed(7)
 
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
-    dataX, dataY = [], []
+    data_x, data_y = [], []
     for i in range(len(dataset) - look_back - 1):
         a = dataset[i:(i + look_back), 0]
-        dataX.append(a)
-        dataY.append(dataset[i + look_back, 0])
-    return numpy.array(dataX), numpy.array(dataY)
+        data_x.append(a)
+        data_y.append(dataset[i + look_back, 0])
+    return numpy.array(data_x), numpy.array(data_y)
 
 
 def create_model(input, output, look_back=1):

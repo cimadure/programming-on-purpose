@@ -1,0 +1,7 @@
+
+
+https://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nasdaq&render=download
+
+https://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nyse&render=download
+
+https://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=amex&render=download

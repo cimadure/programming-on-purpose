@@ -2,7 +2,7 @@
 # Environment variable
 .env
 
-vcs.xlm
+.idea/vcs.xlm
 
 ### Python template
 # Byte-compiled / optimized / DLL files

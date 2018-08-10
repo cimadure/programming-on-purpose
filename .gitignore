@@ -2,6 +2,8 @@
 # Environment variable
 .env
 
+vcs.xlm
+
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -12,7 +12,7 @@ class TestMaximal(unittest.TestCase):
         self.assertEqual(5, last_maximum_occurrence_index(a))
 
 
-class TestRescaling(unittest.TestCase):
+class TestRescalingByPart(unittest.TestCase):
 
     def test_rescale_by_part_maximum(self):
         r = rescale_by_part(x=2., first=1., minimum=0.7, maximum=2.)
@@ -38,9 +38,15 @@ class TestRescaling(unittest.TestCase):
         r = rescale_by_part(x=0.7, first=1.0, minimum=0.5, maximum=4.0)
         self.assertAlmostEqual(-0.6, r)
 
+    def test_rescale_by_part_maximal_assertion(self):
+        with self.assertRaises(AssertionError) as context:
+            rescale_by_part(x=4.5, first=1.0, minimum=0.5, maximum=4.0)
+
+
+class TestRescale(unittest.TestCase):
 
     def test_rescale(self):
-        a = np.array([2, 1, 3, 4])
+        a = np.array([2, 1, 3., 4])
         result = np.array([0, -1, 0.5, 1])
 
         nt.assert_almost_equal(result, rescale(a))

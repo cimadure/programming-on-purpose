@@ -46,7 +46,7 @@ class TestRescalingByPart(unittest.TestCase):
 class TestRescale(unittest.TestCase):
 
     def test_rescale(self):
-        a = np.array([2, 1, 3., 4])
+        a = np.array([2, 1, 3, 4])
         result = np.array([0, -1, 0.5, 1])
 
         nt.assert_almost_equal(result, rescale(a))

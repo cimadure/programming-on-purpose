@@ -1,6 +1,11 @@
 import numpy as np
 
 
+def last_minimum_occurrence_index(x):
+    b = x[::-1]
+    return len(b) - np.argmin(b) - 1
+
+
 def last_maximum_occurrence_index(x):
     b = x[::-1]
     return len(b) - np.argmax(b) - 1

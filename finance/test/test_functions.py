@@ -7,11 +7,16 @@ from finance.functions import *
 import datetime
 
 
-class TestMaximal(unittest.TestCase):
+class TestMaxima(unittest.TestCase):
 
     def test_last_maximum_occurrence_with_1D_array(self):
         a = np.array([0, 0, 4, 4, 4, 4, 2, 2, 2, 2])
         self.assertEqual(5, last_maximum_occurrence_index(a))
+
+    def test_last_minimum_occurrence_with_1D_array(self):
+        a = np.array([0, 0, 4, 4, 4, 4, 2, 2, 2, 2])
+        self.assertEqual(1, last_minimum_occurrence_index(a))
+
 
 
 class TestTimestamps(unittest.TestCase):

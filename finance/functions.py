@@ -1,7 +1,7 @@
 import numpy as np
 
-__all__ = ['last_maximum_occurrence_index', 'rescale', 'rescale_by_part', 'rescale_by_position',
-           'rescale_timestamp_by_position']
+__all__ = ['last_maximum_occurrence_index', 'last_minimum_occurrence_index', 'rescale', 'rescale_by_part',
+           'rescale_by_position', 'rescale_timestamp_by_position']
 
 
 def last_minimum_occurrence_index(x):

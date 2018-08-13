@@ -2,7 +2,7 @@ import numpy.testing as nt
 import numpy as np
 import unittest
 
-from finance.functions import last_maximum_occurrence_index, rescale, rescale_by_part, rescale_by_position
+from finance.functions import *
 
 import datetime
 
@@ -16,27 +16,16 @@ class TestMaximal(unittest.TestCase):
 
 class TestTimestamps(unittest.TestCase):
 
-    def test_timestamp_something(self):
-        numdays = 5
-        base = datetime.datetime.today()
-        date_list = [base - datetime.timedelta(days=x) for x in range(0, numdays)]
-        #for d in date_list:
-        #    print(str(d))
-
-    def test_scale_datetime(self):
-        numdays = 6
-        base = datetime.datetime(2018, 8, 13, 0, 0)
-        date_list = [base - datetime.timedelta(days=x) for x in range(0, numdays)]
-
-
-        #timestamps = list(map(lambda x: x.timestamp(), date_list))
-        #r =  rescale_by_part(x=2, first=1.0, minimum=0.7, maximum=4.0)()
-        #print(timestamps[2]-110000)
-
-
     def test_rescale_by_position(self):
         result = rescale_by_position(x=np.array([1, 2, 3, 4, 5, 6]), position=2)
         nt.assert_almost_equal(np.array([-1, -0.5, 0, 1./3, 2./3, 1]), result)
+
+    def test_scale_datetime(self):
+        numdays = 6
+        base = datetime.datetime(2018, 8, 8, 0, 0)
+        date_list = [base + datetime.timedelta(days=x) for x in range(0, numdays)]
+        nt.assert_almost_equal(np.array([-1, -0.5, 0, 1./3, 2./3, 1]),
+                               rescale_timestamp_by_position(date_list, position=2))
 
 
 class TestRescalingByPart(unittest.TestCase):

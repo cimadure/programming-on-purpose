@@ -18,7 +18,6 @@ class TestMaxima(unittest.TestCase):
         self.assertEqual(1, last_minimum_occurrence_index(a))
 
 
-
 class TestTimestamps(unittest.TestCase):
 
     def test_rescale_by_position(self):

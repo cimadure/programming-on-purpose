@@ -53,20 +53,9 @@ app.layout = html.Div([
 ], className="container")
 
 
-def bbands(price, window_size=10, num_of_std=5):
-    rolling_mean = price.rolling(window=window_size).mean()
-    rolling_std = price.rolling(window=window_size).std()
-    upper_band = rolling_mean + (rolling_std * num_of_std)
-    lower_band = rolling_mean - (rolling_std * num_of_std)
-    return rolling_mean, upper_band, lower_band
-
-
-
 def data_reader(ticker):
     tick = os.path.join(path, str(ticker).lower()) + '.us.txt'
-    #print(tick)
     df = pd.read_csv(tick, engine='python', parse_dates=['Date'])
-    #print(df.head(5))
     return df
     #return DataReader(str(ticker), 'morningstar',
     #                  dt.datetime.now() - dt.timedelta(days=60),
@@ -100,20 +89,11 @@ def update_graph(tickers):
             'increasing': {'line': {'color': colorscale[0]}},
             'decreasing': {'line': {'color': colorscale[1]}}
         }
-        bb_bands = bbands(df.Close)
-        bollinger_traces = [{
-            'x': df['Date'], 'y': y,
-            'type': 'scatter', 'mode': 'lines',
-            'line': {'width': 1, 'color': colorscale[(i * 2) % len(colorscale)]},
-            'hoverinfo': 'none',
-            'legendgroup': ticker,
-            'showlegend': True if i == 0 else False,
-            'name': '{} - bollinger bands'.format(ticker)
-        } for i, y in enumerate(bb_bands)]
+
         graphs.append(dcc.Graph(
             id=ticker,
             figure={
-                'data': [candlestick] + bollinger_traces,
+                'data': [candlestick],
                 'layout': {
                     'margin': {'b': 0, 'r': 10, 'l': 60, 't': 0},
                     'legend': {'x': 0}

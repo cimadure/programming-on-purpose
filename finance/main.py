@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,33 +25,41 @@ np.random.seed(123456)
 
 
 #------------------------------------------------------
+path = 'data/historical/Stocks/'
+for file in os.listdir(path):
+    ticker = os.path.join(path, file)
+    print(ticker)
 
-tickers = ['data/historical/Stocks/aapl.us.txt', 'data/historical/Stocks/yelp.us.txt']
-for ticker in tickers:
-    df = pd.read_csv(ticker, engine='python',  parse_dates=['Date'])
-    #print(df.head(4))
-    #print(df.tail(4))
+#tickers = ['data/historical/Stocks/aapl.us.txt', 'data/historical/Stocks/yelp.us.txt']
+#for ticker in tickers:
 
-    #index = last_maximum_occurrence_index(df['Close'])
-    index = df['Close'].idxmax()
+    try:
+        df = pd.read_csv(ticker, engine='python',  parse_dates=['Date'])
+        #print(df.head(4))
+        #print(df.tail(4))
 
-    df['stamp'] = rescale_timestamp_by_position(df['Date'], index)
+        #index = last_maximum_occurrence_index(df['Close'])
+        index = df['Close'].idxmax()
 
-    plt.figure()
-    df.plot(y='Close', title=ticker)
-    #plt.plot(index, df['Close'][index], 'rx')
-    plt.show()
+        df['stamp'] = rescale_timestamp_by_position(df['Date'], index)
 
-    df['Close'] = rescale(df['Close'])
+        # plt.figure()
+        # df.plot(y='Close', title=ticker)
+        # plt.show()
+        #
+        # plt.figure()
+        # df.plot(y='Volume', title=ticker)
+        # plt.show()
 
-    plt.figure()
-    df.plot(x='stamp', y='Close')
-    plt.plot(df['stamp'][index], df['Close'][index], 'rx')
-    plt.show()
+        df['Close'] = rescale(df['Close'])
 
+        name = file + '.png'
 
-
-
-    #index = df['Close'].idxmax()
-
-    print("---+", index, df['Close'][index], df['Date'][index])
+        fig = plt.figure()
+        df.plot(x='stamp', y='Close', title=ticker)
+        plt.plot(df['stamp'][index], df['Close'][index], 'rx')
+        plt.savefig(name)
+        #plt.show()
+        plt.close(fig)
+    except:
+        print('impossible with', ticker)

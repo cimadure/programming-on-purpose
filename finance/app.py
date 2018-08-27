@@ -18,11 +18,12 @@ dcc._js_dist[0]['external_url'] = 'https://cdn.plot.ly/plotly-finance-1.28.0.min
 
 colorscale = cl.scales['9']['qual']['Paired']
 
+path = 'data/historical/Stocks/'
 df_symbol = pd.read_csv('tickers.csv')
 
 app.layout = html.Div([
     html.Div([
-        html.H2('Morningstar Finance Explorer',
+        html.H2('Finance Explorer',
                 style={'display': 'inline',
                        'float': 'left',
                        'font-size': '2.65em',
@@ -33,41 +34,53 @@ app.layout = html.Div([
                        'margin-top': '20px',
                        'margin-bottom': '0'
                        }),
-        html.Img(src="https://s3-us-west-1.amazonaws.com/plotly-tutorials/logo/new-branding/dash-logo-by-plotly-stripe.png",
-                style={
-                    'height': '100px',
-                    'float': 'right'
-                },
-        ),
+        html.Img(
+            src="https://s3-us-west-1.amazonaws.com/plotly-tutorials/logo/new-branding/dash-logo-by-plotly-stripe.png",
+            style={
+                'height': '100px',
+                'float': 'right'
+            },
+            ),
     ]),
     dcc.Dropdown(
         id='stock-ticker-input',
         options=[{'label': s[0], 'value': str(s[1])}
                  for s in zip(df_symbol.Company, df_symbol.Symbol)],
-        value=['YHOO', 'GOOGL'],
+        value=['IBM', "ALSK"],
         multi=True
     ),
     html.Div(id='graphs')
 ], className="container")
 
+
 def bbands(price, window_size=10, num_of_std=5):
     rolling_mean = price.rolling(window=window_size).mean()
-    rolling_std  = price.rolling(window=window_size).std()
-    upper_band = rolling_mean + (rolling_std*num_of_std)
-    lower_band = rolling_mean - (rolling_std*num_of_std)
+    rolling_std = price.rolling(window=window_size).std()
+    upper_band = rolling_mean + (rolling_std * num_of_std)
+    lower_band = rolling_mean - (rolling_std * num_of_std)
     return rolling_mean, upper_band, lower_band
 
+
+
+def data_reader(ticker):
+    tick = os.path.join(path, str(ticker).lower()) + '.us.txt'
+    #print(tick)
+    df = pd.read_csv(tick, engine='python', parse_dates=['Date'])
+    #print(df.head(5))
+    return df
+    #return DataReader(str(ticker), 'morningstar',
+    #                  dt.datetime.now() - dt.timedelta(days=60),
+    #                  dt.datetime.now(), retry_count=0).reset_index()
+
+
 @app.callback(
-    dash.dependencies.Output('graphs','children'),
+    dash.dependencies.Output('graphs', 'children'),
     [dash.dependencies.Input('stock-ticker-input', 'value')])
 def update_graph(tickers):
     graphs = []
     for i, ticker in enumerate(tickers):
         try:
-            df = DataReader(str(ticker), 'morningstar',
-                            dt.datetime.now()-dt.timedelta(days=60),
-                            dt.datetime.now(),
-                            retry_count=0).reset_index()
+            df = data_reader(ticker=ticker)
         except:
             graphs.append(html.H3(
                 'Data is not available for {}, please retry later.'.format(ticker),
@@ -91,7 +104,7 @@ def update_graph(tickers):
         bollinger_traces = [{
             'x': df['Date'], 'y': y,
             'type': 'scatter', 'mode': 'lines',
-            'line': {'width': 1, 'color': colorscale[(i*2) % len(colorscale)]},
+            'line': {'width': 1, 'color': colorscale[(i * 2) % len(colorscale)]},
             'hoverinfo': 'none',
             'legendgroup': ticker,
             'showlegend': True if i == 0 else False,
@@ -117,12 +130,10 @@ external_css = ["https://fonts.googleapis.com/css?family=Product+Sans:400,400i,7
 for css in external_css:
     app.css.append_css({"external_url": css})
 
-
 if 'DYNO' in os.environ:
     app.scripts.append_script({
         'external_url': 'https://cdn.rawgit.com/chriddyp/ca0d8f02a1659981a0ea7f013a378bbd/raw/e79f3f789517deec58f41251f7dbb6bee72c44ab/plotly_ga.js'
     })
 
-
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, port=5557)
